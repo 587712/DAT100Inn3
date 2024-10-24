@@ -5,6 +5,12 @@ import no.hvl.dat100.common.TODO;
 public abstract class Innlegg {
 	
 	// TODO - deklarering av objektvariable
+	// TODO - START
+	public int id;
+	public String bruker;
+	public String dato;
+	public int likes;
+	// TODO SLUTT
 	
 	public Innlegg() {
 		
@@ -13,59 +19,115 @@ public abstract class Innlegg {
 	public Innlegg(int id, String bruker, String dato) {
 
 		// TODO 
-		throw new UnsupportedOperationException(TODO.constructor("Innlegg"));
+		// TODO - START
+		this.id = id;
+		this.bruker = bruker;
+		this.dato = dato;
+		this.likes = 0;
+		// TODO SLUTT
+		
 	}
 
 	public Innlegg(int id, String bruker, String dato, int likes) {
 
+		// TODO
 		// TODO - START
+		this.id = id;
+		this.bruker = bruker;
+		this.dato = dato;
+		this.likes = likes;
+		// TODO SLUTT
 		
-		throw new UnsupportedOperationException(TODO.constructor("Innlegg"));
 	}
 	
 	public String getBruker() {
 		
-		throw new UnsupportedOperationException(TODO.method());
+		// TODO
+		// TODO - START
+		return bruker;
+		// TODO SLUTT
 
 	}
 
 	public void setBruker(String bruker) {
-		throw new UnsupportedOperationException(TODO.method());
+
+		// TODO
+		// TODO - START
+		this.bruker = bruker;
+		// TODO SLUTT
+		
 	}
 
 	public String getDato() {
-		throw new UnsupportedOperationException(TODO.method());
+
+		// TODO
+		// TODO - START
+		return dato;
+		// TODO SLUTT
 		
 	}
 
 	public void setDato(String dato) {
-		throw new UnsupportedOperationException(TODO.method());
+
+		// TODO
+		// TODO - START
+		this.dato = dato;
+		// TODO SLUTT
+		
 	}
 
 	public int getId() {
-		throw new UnsupportedOperationException(TODO.method());
+
+		// TODO
+		// TODO - START
+		return id;
+		// TODO SLUTT
 
 	}
 
 	public int getLikes() {
-		throw new UnsupportedOperationException(TODO.method());
+		
+		// TODO
+		// TODO - START
+		return likes;
+		// TODO SLUTT
 
 	}
 	
 	public void doLike () {
-		throw new UnsupportedOperationException(TODO.method());
+
+		// TODO
+		// TODO - START
+		likes++;
+		// TODO SLUTT
+		
 	}
 	
 	public boolean erLik(Innlegg innlegg) {
-		throw new UnsupportedOperationException(TODO.method());
+		
+		// TODO
+		// TODO - START
+		if(id == innlegg.getId()) {
+			
+			return true;
+			
+		}
+		
+		return false;
+		// TODO SLUTT
 
 	}
 	
 	@Override
 	public String toString() {
 		
-		throw new UnsupportedOperationException(TODO.method());
-				
+		// TODO
+		// TODO - START
+		String melding = String.format("%d\n%s\n%s\n%d\n", id, bruker, dato, likes);
+		
+		return melding;
+		// TODO SLUTT
+		
 	}
 	
 	// Metoden nedenfor er kun for valgfri oppgave 6
