@@ -142,11 +142,15 @@ public class Blogg {
 		
 		// TODO
 		// TODO - START
-		String melding = String.format("%d\n", innleggtabell.length);
+		String melding = String.format("%d\n", getAntall());
 		
 		for(Innlegg i : innleggtabell) {
 			
-			melding += String.format("%s", i.toString());
+			if(i != null) {
+				
+				melding += String.format("%s", i.toString());
+				
+			}
 			
 		}
 		
