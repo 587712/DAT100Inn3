@@ -34,10 +34,7 @@ public class Tekst extends Innlegg {
 	public String toString() {
 		StringJoiner res = new StringJoiner("\n");
 		res.add("TEKST");
-		res.add(String.valueOf(getId()));
-		res.add(getBruker());
-		res.add(getDato());
-		res.add(String.valueOf(getLikes()));
+		res.add(super.toString().trim());  
 		res.add(this.tekst);
 		return res.toString() + "\n";
 	}
