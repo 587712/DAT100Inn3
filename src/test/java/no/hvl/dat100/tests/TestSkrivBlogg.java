@@ -23,7 +23,6 @@ public class TestSkrivBlogg {
 		
 		samling.leggTil(innlegg1);
 		samling.leggTil(innlegg2);
-		
 		assertTrue(SkrivBlogg.skriv(samling, MAPPE, FILNAVN));
 	}	
 }

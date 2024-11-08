@@ -10,15 +10,33 @@ public class HtmlBlogg extends Blogg {
 		super();
 	}
 	
-	private static String HTMLPREFIX = 
-			"<html>\n\t<head>\n\t\t<title>DAT100 Blogg</title>\n\t</head>\n\t<body>\n";
+	private static String HTMLPREFIX =
+	"<html>\n" +
+	"\t<head>\n" +
+	"\t\t<title>DAT100 Blogg</title>\n" +
+	"\t\t<style>\n" +
+	"\t\t\tbody { max-width: 800px; margin: auto; }\n" +
+	"\t\t</style>\n" +
+	"\t</head>\n" +
+	"\t<body>\n";
 	
-	private static String HTMLPOSTFIX = 
-			"\t</body>\n</html>";
-	
+	private static String HTMLPOSTFIX =
+	"\t</body>\n" +
+	"</html>";
+
 	@Override
 	public String toString() {
-		throw new UnsupportedOperationException(TODO.method());
 		
+		StringBuilder res = new StringBuilder();
+		
+		res.append(HTMLPREFIX);
+		
+		for (int i = 0; i < getAntall(); i++) {
+			res.append(getSamling()[i].toHTML());
+		}
+		
+		res.append(HTMLPOSTFIX);
+		
+		return res.toString();
 	}
 }

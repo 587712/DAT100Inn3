@@ -1,235 +1,121 @@
 package no.hvl.dat100.oppgave3;
 
+import java.util.StringJoiner;
+
 import no.hvl.dat100.common.TODO;
 import no.hvl.dat100.oppgave1.*;
 
 public class Blogg {
 
-	// TODO: objektvariable
-	// TODO - START
-	Innlegg[] innleggtabell;
-	int nesteledig;
-	// TODO SLUTT
+	private Innlegg[] innleggTabell;
+	private int nesteLedig;
 
 	public Blogg() {
-		
-		// TODO
-		// TODO - START
-		innleggtabell = new Innlegg[20];
-		// TODO SLUTT
-		
+		this.innleggTabell = new Innlegg[20];
 	}
 
 	public Blogg(int lengde) {
-		
-		// TODO
-		// TODO - START
-		innleggtabell = new Innlegg[lengde];
-		// TODO SLUTT
-		
+		this.innleggTabell = new Innlegg[lengde];
 	}
 
 	public int getAntall() {
-		
-		// TODO
-		// TODO - START
-		int antall = 0;
-		
-		for(Innlegg i : innleggtabell) {
-			
-			if(!(i == null)) {
-				
-				antall++;
-				
-			}
-			
-		}
-		
-		return antall;
-		// TODO SLUTT
-		
+		return nesteLedig;
 	}
 	
 	public Innlegg[] getSamling() {
-		
-		// TODO
-		// TODO - START
-		return innleggtabell;
-		// TODO SLUTT
-		
+		return innleggTabell;
 	}
 	
 	public int finnInnlegg(Innlegg innlegg) {
-		
-		// TODO
-		// TODO - START
-		if(innleggtabell.length > 0) {
-			
-			for(int i = 0; i < innleggtabell.length; i++) {
-				
-				if(innleggtabell[i] != null) {
-					
-					if(innleggtabell[i].erLik(innlegg)) {
-						
-						return innleggtabell[i].getId();
-						
-					}
-					
-				}
-				
+		for (int i = 0; i < getAntall(); i++) {
+			if (innleggTabell[i].getId() == innlegg.getId()) {
+				return i;
 			}
-			
 		}
-		
 		return -1;
-		// TODO SLUTT
-		
 	}
 
 	public boolean finnes(Innlegg innlegg) {
-		
-		// TODO
-		// TODO - START
-		boolean temp = (finnInnlegg(innlegg) == -1) ? (false) : (true);
-		
-		return temp;
-		// TODO SLUTT
-		
+		for (int i = 0; i < getAntall(); i++) {
+			if (innleggTabell[i].getId() == innlegg.getId()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean ledigPlass() {
-		
-		// TODO
-		// TODO - START
-		for(int i = 0; i < innleggtabell.length; i++) {
-			
-			if(innleggtabell[i] == null) {
-				
-				nesteledig = i;
-				return true;
-				
-			}
-			
-		}
-		
-		return false;
-		// TODO SLUTT
-		
+		return nesteLedig < innleggTabell.length;
 	}
-	
+
 	public boolean leggTil(Innlegg innlegg) {
-		
-		// TODO
-		// TODO - START
-		if(ledigPlass()) {
-			
-			if(!(finnes(innlegg))) {
-				
-				innleggtabell[nesteledig] = innlegg;
-				nesteledig++;
-				return true;
-				
-			}
-			
+		if (innlegg != null && ledigPlass() && !finnes(innlegg)) {
+			innleggTabell[nesteLedig++] = innlegg;
+			return true;
 		}
-		
 		return false;
-		// TODO SLUTT
-		
+	}
+
+	public String toString() {
+		StringBuilder res = new StringBuilder();
+		res.append(getAntall()).append("\n"); 
+		for (int i = 0; i < getAntall(); i++) { 
+			if (innleggTabell[i] != null) { 
+				res.append(innleggTabell[i].toString()); 
+			}
+		}
+		return res.toString();
 	}
 	
-	public String toString() {
-		
-		// TODO
-		// TODO - START
-		String melding = String.format("%d\n", getAntall());
-		
-		for(Innlegg i : innleggtabell) {
-			
-			if(i != null) {
-				
-				melding += String.format("%s", i.toString());
-				
-			}
-			
-		}
-		
-		return melding;
-		// TODO SLUTT
-		
-	}
+
 
 	// valgfrie oppgaver nedenfor
 	
 	public void utvid() {
-		
-		Innlegg[] temp = new Innlegg[innleggtabell.length * 2];
-		
-		for(int i = 0; i < innleggtabell.length; i++) {
-			
-			temp[i] = innleggtabell[i];
-			
+		Innlegg[] utvidetInnleggTabell = new Innlegg[innleggTabell.length * 2];
+		for (int i = 0; i < innleggTabell.length; i++) {
+			utvidetInnleggTabell[i] = innleggTabell[i];
 		}
-		
-		innleggtabell = temp;
-		
+		innleggTabell = utvidetInnleggTabell;
 	}
 	
 	public boolean leggTilUtvid(Innlegg innlegg) {
-		
-		if(finnes(innlegg)) {
-			
-			if(nesteledig < innleggtabell.length) {
-				
-				leggTil(innlegg);
-				return true;
-				
-			}
-			else {
-				
-				utvid();
-				leggTil(innlegg);
-				return true;
-				
-			}
-			
+
+		if (!ledigPlass()) {
+			utvid();
 		}
-		
-		return false;
-		
+		return leggTil(innlegg);
 	}
 	
 	public boolean slett(Innlegg innlegg) {
-		
-		int id = finnInnlegg(innlegg);
-		
-		if(!(id == -1)) {
-			
-			innleggtabell[id - 1] = null;
-			return true;
-			
+		if (!finnes(innlegg)) return false;
+		int idx = finnInnlegg(innlegg);
+
+		while (idx < innleggTabell.length - 1) {
+			innleggTabell[idx] = innleggTabell[idx + 1];
+			idx++;
 		}
-		
-		return false;
-		
+		innleggTabell[idx] = null;
+		nesteLedig--;
+		return true;
 	}
 	
 	public int[] search(String keyword) {
-		
-		int[] id = new int[innleggtabell.length];
-		
-		for(int i = 0; i < innleggtabell.length; i++) {
-			
-			if(innleggtabell[i].toString().contains(keyword)) {
-				
-				id[i] = innleggtabell[i].getId();
-				
+		//Ikke effektivt, men fungerer!
+		int matchCount = 0;
+		for (int i = 0; i < innleggTabell.length; i++) {
+			if (innleggTabell[i].toString().contains(keyword)) {
+				matchCount++;
 			}
-			
 		}
-		
-		return id;
-		
+		int[] matches = new int[matchCount];
+		int idx = 0;
+		for (int i = 0; i < innleggTabell.length; i++) {
+			if (innleggTabell[i].toString().contains(keyword)) {
+				matches[idx] = innleggTabell[i].getId();
+				idx++;
+			}
+		}
+		return matches;
 	}
-	
 }

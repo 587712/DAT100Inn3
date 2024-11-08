@@ -1,75 +1,55 @@
 package no.hvl.dat100.oppgave2;
 
+import java.util.StringJoiner;
+
 import no.hvl.dat100.common.TODO;
 
 public class Bilde extends Tekst {
 
 	// TODO - objekt variable
-	// TODO - START
-	String url;
-	// TODO SLUTT
+	private String url;
 	
 	public Bilde(int id, String bruker, String dato, String tekst, String url) {
-		
-		// TODO
-		// TODO - START
-		super.id = id;
-		super.bruker = bruker;
-		super.dato = dato;
-		super.tekst = tekst;
+		super(id, bruker, dato, tekst);
 		this.url = url;
-		// TODO SLUTT
-		
 	}
 
 	public Bilde(int id, String bruker, String dato, int likes, String tekst, String url) {
-		
-		// TODO
-		// TODO - START
-		super.id = id;
-		super.bruker = bruker;
-		super.dato = dato;
-		super.likes = likes;
-		super.tekst = tekst;
+		super(id, bruker, dato, likes, tekst);
 		this.url = url;
-		// TODO SLUTT
-		
 	}
 	
 	public String getUrl() {
-		
-		// TODO
-		// TODO - START
-		return url;
-		// TODO SLUTT
-		
+		return this.url;
 	}
 
 	public void setUrl(String url) {
-		
-		// TODO
-		// TODO - START
 		this.url = url;
-		// TODO SLUTT
-		
 	}
 
 	@Override
 	public String toString() {
-		
-		// TODO
-		// TODO - START
-		String melding = String.format("BILDE\n%s%s\n", super.toString().substring(6), url);
-		
-		return melding;
-		// TODO SLUTT
-		
+		StringJoiner res = new StringJoiner("\n");
+		res.add("BILDE");
+		res.add(String.valueOf(getId()));
+		res.add(getBruker());
+		res.add(getDato());
+		res.add(String.valueOf(getLikes()));
+		res.add(getTekst());
+		res.add(this.url);
+		return res.toString() + "\n";
 	}
 
 	// Metoden nedenfor er kun for valgfri oppgave 6
 	public String toHTML() {
 		
-		throw new UnsupportedOperationException(TODO.method());
+		StringJoiner res = new StringJoiner("\n", "\n", "\n");
+		res.add("\t<figure>");
+		res.add("\t\t<img src=\"" + this.url + "\" alt=\"Bilde\" style=\"width:100%\">");
+		res.add("\t\t<figcaption>" + getBruker() + "@" + getDato() + "[" + getLikes() + "]" + getTekst() + "</figcaption>");
+		res.add("\t</figure>");
+		res.add("\t<hr>");
+		return res.toString();
 				
 	}
 }
